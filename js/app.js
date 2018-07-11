@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 class Enemy {
   // Variables applied to each of our instances go here,
@@ -68,16 +69,16 @@ class Player {
 
   handleInput(keyPress) {
     if (keyPress == "left") {
-      player.x -= player.speed;
+      this.x -= this.speed;
     }
     if (keyPress == "up") {
-      player.y -= player.speed - 10;
+      this.y -= this.speed - 10;
     }
     if (keyPress == "right") {
-      player.x += player.speed;
+      this.x += this.speed;
     }
     if (keyPress == "down") {
-      player.y += player.speed - 10;
+      this.y += this.speed - 10;
     }
   }
 
@@ -94,14 +95,13 @@ function checkCollision(enemy) {
     player.y + 70 <= enemy.y + 130 &&
     player.x + 70 >= enemy.x + 20
   ) {
-    console.log("collided");
     player.reset();
   }
 }
 
 function winningMessage() {
-  const winnersDiv = document.querySelector('div');
-  const button = document.querySelector('button');
+  const winnersDiv = document.querySelector("div");
+  const button = document.querySelector("button");
   button.addEventListener("click", function() {
     player.reset();
     winnersDiv.style.display = "none";
@@ -111,12 +111,12 @@ function winningMessage() {
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-const allEnemies = [];
-const enemy1 = new Enemy(50, 230, 60);
-const enemy2 = new Enemy(0, 60, 40);
-const enemy3 = new Enemy(200, 150, 30);
-const enemy4 = new Enemy(0, 150, 10);
-allEnemies.push(enemy1, enemy2, enemy3, enemy4);
+const allEnemies = [
+  new Enemy(50, 230, 60),
+  new Enemy(0, 60, 40),
+  new Enemy(200, 150, 30),
+  new Enemy(0, 150, 10)
+];
 
 // Place the player object in a variable called player
 const player = new Player();

@@ -31,34 +31,35 @@ class Enemy {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
 }
+
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
-  constructor(x, y) {
+  constructor() {
     this.sprite = "images/char-princess-girl.png";
-    this.x = x;
-    this.y = y;
+    this.x = 200;
+    this.y = 380;
     this.speed = 50;
   }
 
   update() {
     if (this.x >= 400) {
-        this.x = 400;
+      this.x = 400;
     }
 
     if (this.x <= 0) {
-        this.x = 0;
+      this.x = 0;
     }
 
     if (this.y >= 383) {
-        this.y = 383;
+      this.y = 383;
     }
 
-    if (this.y < -25 ) {
-        this.y = -25;
+    if (this.y < -25) {
+      this.y = -25;
+      winningMessage();
     }
-
   }
 
   render() {
@@ -78,24 +79,41 @@ class Player {
     if (keyPress == "down") {
       player.y += player.speed - 10;
     }
-    console.log("keyPress is: " + keyPress);
+  }
+
+  reset() {
+    this.x = 200;
+    this.y = 380;
   }
 }
 
-function checkCollision(enemy) {}
+function checkCollision(enemy) {
+  if (
+    player.y + 130 >= enemy.y + 90 &&
+    player.x + 10 <= enemy.x + 80 &&
+    player.y + 70 <= enemy.y + 130 &&
+    player.x + 70 >= enemy.x + 20
+  ) {
+    console.log("collided");
+    player.reset();
+  }
+}
 
-function checkWin() {}
+function winningMessage() {
+  console.log('you won!');
+  player.reset();
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 const allEnemies = [];
-const enemy1 = new Enemy(0, 230, 10);
-const enemy2 = new Enemy(30, 60, 30);
-const enemy3 = new Enemy(100, 150, 30);
+const enemy1 = new Enemy(50, 230, 60);
+const enemy2 = new Enemy(0, 60, 40);
+const enemy3 = new Enemy(200, 150, 30);
 allEnemies.push(enemy1, enemy2, enemy3);
 
 // Place the player object in a variable called player
-const player = new Player(200, 380);
+const player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

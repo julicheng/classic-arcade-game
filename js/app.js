@@ -100,8 +100,13 @@ function checkCollision(enemy) {
 }
 
 function winningMessage() {
-  console.log('you won!');
-  player.reset();
+  const winnersDiv = document.querySelector('div');
+  const button = document.querySelector('button');
+  button.addEventListener("click", function() {
+    player.reset();
+    winnersDiv.style.display = "none";
+  });
+  winnersDiv.style.display = "block";
 }
 
 // Now instantiate your objects.
@@ -110,7 +115,8 @@ const allEnemies = [];
 const enemy1 = new Enemy(50, 230, 60);
 const enemy2 = new Enemy(0, 60, 40);
 const enemy3 = new Enemy(200, 150, 30);
-allEnemies.push(enemy1, enemy2, enemy3);
+const enemy4 = new Enemy(0, 150, 10);
+allEnemies.push(enemy1, enemy2, enemy3, enemy4);
 
 // Place the player object in a variable called player
 const player = new Player();
